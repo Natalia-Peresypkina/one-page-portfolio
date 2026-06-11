@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title data-en="Natalia Peresypkina - PrestaShop & WordPress Frontend Web Developer" data-pl="Natalia Peresypkina - PrestaShop & WordPress Frontend Web Developer">Natalia Peresypkina - PrestaShop & WordPress Frontend Web Developer</title>
+<meta name="description" content="15+ years building e-commerce platforms. PrestaShop, WordPress/WooCommerce specialist focused on performance, SEO, and conversion." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0A0F1E; --navy-mid: #111827; --navy-light: #1E2A3A;
+  --teal: #00C9A7; --teal-dim: #00a888;
+  --cream: #F7F5F0; --cream-dark: #EDEAE3;
+  --text-dark: #0A0F1E; --text-muted: #6B7280; --text-light: #9CA3AF;
+  --white: #FFFFFF; --border: rgba(0,0,0,0.08); --border-hero: rgba(255,255,255,0.10);
+  --radius: 10px; --radius-lg: 16px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,15,30,0.93); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-hero);
+  padding: 0 2rem; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: var(--white); letter-spacing: -0.3px; }
+.nav-logo span { color: var(--teal); }
+.nav-right { display: flex; align-items: center; gap: 2rem; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-cta { background: var(--teal); color: var(--navy) !important; padding: 7px 18px; border-radius: 6px; font-weight: 600 !important; font-size: 13px !important; transition: background 0.2s !important; }
+.nav-cta:hover { background: var(--teal-dim) !important; }
+
+/* Language switcher */
+.lang-switch {
+  display: flex; align-items: center; gap: 3px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px; padding: 3px;
+}
+.lang-btn {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.45); font-size: 12px; font-weight: 600;
+  padding: 4px 9px; border-radius: 4px; letter-spacing: 0.5px;
+  transition: background 0.15s, color 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.lang-btn.active { background: var(--teal); color: var(--navy); }
+.lang-btn:hover:not(.active) { color: rgba(255,255,255,0.85); }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+.hamburger span { width: 22px; height: 2px; background: white; border-radius: 2px; display: block; }
+
+/* HERO */
+#home { min-height: 100vh; background: var(--navy); display: flex; align-items: center; padding: 100px 2rem 60px; position: relative; overflow: hidden; }
+.hero-grid { position: absolute; inset: 0; opacity: 0.04; background-image: linear-gradient(var(--teal) 1px, transparent 1px), linear-gradient(90deg, var(--teal) 1px, transparent 1px); background-size: 60px 60px; }
+.hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,201,167,0.12); border: 1px solid rgba(0,201,167,0.3); color: var(--teal); font-size: 13px; font-weight: 500; padding: 5px 14px; border-radius: 100px; letter-spacing: 0.5px; margin-bottom: 1.5rem; }
+.hero-eyebrow::before { content: ''; width: 7px; height: 7px; background: var(--teal); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 700; color: var(--white); line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1rem; }
+h1 em { font-style: normal; color: var(--teal); }
+.typewriter-line { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.45rem); color: rgba(255,255,255,0.55); font-weight: 300; margin-bottom: 2rem; min-height: 2em; }
+.typewriter-line .typed { color: rgba(255,255,255,0.9); font-weight: 400; border-right: 2px solid var(--teal); padding-right: 3px; animation: blink 1s step-end infinite; }
+@keyframes blink { 50%{border-color:transparent} }
+.hero-summary { max-width: 580px; font-size: 1rem; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 2.5rem; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary { background: var(--teal); color: var(--navy); padding: 13px 28px; border-radius: 8px; font-weight: 600; font-size: 15px; text-decoration: none; transition: background 0.2s, transform 0.1s; display: inline-flex; align-items: center; gap: 8px; }
+.btn-primary:hover { background: var(--teal-dim); transform: translateY(-1px); }
+.btn-outline { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); padding: 13px 28px; border-radius: 8px; font-weight: 500; font-size: 15px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+.btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+.hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; }
+.stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--white); }
+.stat-num span { color: var(--teal); }
+.stat-label { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+/* SECTIONS COMMON */
+section { padding: 90px 2rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 0.6rem; }
+h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 700; letter-spacing: -0.8px; color: var(--text-dark); margin-bottom: 1rem; }
+.section-lead { font-size: 1.05rem; color: var(--text-muted); max-width: 560px; line-height: 1.75; margin-bottom: 3rem; }
+h2.light { color: var(--white); }
+.section-lead.light { color: rgba(255,255,255,0.55); }
+
+/* ABOUT */
+#about { background: var(--white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.about-text p { color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem; }
+.about-text p:last-child { margin-bottom: 0; }
+.lang-list { display: flex; flex-direction: column; gap: 10px; margin-top: 1.5rem; }
+.lang-item { display: flex; align-items: center; gap: 12px; }
+.lang-name { font-weight: 500; font-size: 14px; min-width: 70px; }
+.lang-bar-wrap { flex: 1; height: 4px; background: var(--cream-dark); border-radius: 2px; }
+.lang-bar { height: 4px; background: var(--teal); border-radius: 2px; }
+.lang-level { font-size: 12px; color: var(--text-light); min-width: 50px; text-align: right; }
+.value-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.value-card { background: var(--cream); border-radius: var(--radius); padding: 1.25rem; border: 1px solid var(--border); }
+.value-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(0,201,167,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; font-size: 18px; }
+.value-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+.value-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+/* SKILLS */
+#skills { background: var(--navy); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.skill-group { background: var(--navy-light); border: 1px solid var(--border-hero); border-radius: var(--radius-lg); padding: 1.5rem; }
+.skill-group-title { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+.skill-group-title::before { content: ''; width: 4px; height: 14px; background: var(--teal); border-radius: 2px; }
+.tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); font-size: 12.5px; padding: 4px 10px; border-radius: 5px; transition: background 0.2s, border-color 0.2s, color 0.2s; cursor: default; }
+.tag:hover { background: rgba(0,201,167,0.15); border-color: rgba(0,201,167,0.4); color: var(--teal); }
+.tag.primary { background: rgba(0,201,167,0.12); border-color: rgba(0,201,167,0.35); color: var(--teal); }
+
+/* PORTFOLIO */
+#portfolio { background: var(--cream); }
+.portfolio-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; gap: 1rem; flex-wrap: wrap; }
+.slider-wrap { position: relative; overflow: hidden; border-radius: var(--radius-lg); }
+.slider-track { display: flex; gap: 1.5rem; transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); will-change: transform; }
+.slide-card {
+  flex: 0 0 calc(33.333% - 1rem);
+  min-width: 0;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.slide-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.09); }
+.slide-img {
+  width: 100%; aspect-ratio: 16/10; overflow: hidden;
+  background: var(--cream-dark); position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.slide-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  background: linear-gradient(135deg, #1E2A3A 0%, #0F1A2A 100%);
+  position: relative;
+}
+.slide-placeholder-grid {
+  position: absolute; inset: 0; opacity: 0.06;
+  background-image: linear-gradient(var(--teal) 1px, transparent 1px), linear-gradient(90deg, var(--teal) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.slide-placeholder-icon { font-size: 2.2rem; position: relative; z-index: 1; }
+.slide-placeholder-text { font-size: 12px; color: rgba(255,255,255,0.3); font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.5px; position: relative; z-index: 1; }
+.slide-placeholder-num { position: absolute; bottom: 10px; right: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: rgba(255,255,255,0.05); z-index: 1; }
+.slide-body { padding: 1.2rem 1.4rem 1.4rem; }
+.slide-category { font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.7px; color: var(--teal); margin-bottom: 5px; }
+.slide-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.slide-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 10px; }
+.slide-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.slide-tag { font-size: 11.5px; padding: 3px 8px; border-radius: 4px; background: var(--cream-dark); color: var(--text-muted); }
+
+.slider-controls { display: flex; align-items: center; gap: 10px; }
+.slider-btn {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--white); border: 1px solid var(--border);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+.slider-btn:hover { background: var(--teal); border-color: var(--teal); }
+.slider-btn:hover svg { stroke: var(--navy); }
+.slider-btn svg { width: 16px; height: 16px; stroke: var(--text-muted); stroke-width: 2; fill: none; }
+.slider-btn:disabled { opacity: 0.35; cursor: default; pointer-events: none; }
+.slider-dots { display: flex; gap: 6px; }
+.slider-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cream-dark); border: none; cursor: pointer; padding: 0; transition: background 0.2s, transform 0.2s; }
+.slider-dot.active { background: var(--teal); transform: scale(1.2); }
+
+/* EXPERIENCE */
+#experience { background: var(--white); }
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 1px; background: var(--border); }
+.exp-item { position: relative; margin-bottom: 2.5rem; }
+.exp-item:last-child { margin-bottom: 0; }
+.exp-dot { position: absolute; left: -34px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--teal); border: 2px solid var(--white); box-shadow: 0 0 0 3px rgba(0,201,167,0.2); }
+.exp-card { background: var(--cream); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; transition: box-shadow 0.2s; }
+.exp-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+.exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.exp-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; }
+.exp-years { font-size: 12.5px; background: rgba(0,201,167,0.1); color: var(--teal); padding: 3px 10px; border-radius: 100px; font-weight: 500; white-space: nowrap; height: fit-content; }
+.exp-desc { font-size: 14.5px; color: var(--text-muted); line-height: 1.75; }
+
+/* EDUCATION */
+#education { background: var(--cream); }
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+.cert-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.4rem; display: flex; gap: 14px; align-items: flex-start; transition: border-color 0.2s; }
+.cert-card:hover { border-color: rgba(0,201,167,0.4); }
+.cert-icon { width: 38px; height: 38px; flex-shrink: 0; border-radius: 8px; background: rgba(0,201,167,0.1); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.cert-body { flex: 1; min-width: 0; }
+.cert-title { font-weight: 600; font-size: 14px; margin-bottom: 3px; }
+.cert-issuer { font-size: 12.5px; color: var(--text-muted); margin-bottom: 5px; }
+.cert-date { font-size: 11.5px; color: var(--teal); font-weight: 500; background: rgba(0,201,167,0.1); padding: 2px 8px; border-radius: 100px; display: inline-block; }
+.cert-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.cert-tag { font-size: 11px; padding: 2px 7px; border-radius: 4px; background: rgba(0,0,0,0.05); color: var(--text-muted); }
+
+/* CONTACT */
+#contact { background: var(--navy); text-align: center; }
+.contact-inner { max-width: 680px; margin: 0 auto; }
+.contact-tagline { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: var(--white); letter-spacing: -0.8px; margin-bottom: 1rem; line-height: 1.2; }
+.contact-tagline em { font-style: normal; color: var(--teal); }
+.contact-sub { color: rgba(255,255,255,0.5); font-size: 1rem; margin-bottom: 2.5rem; }
+.contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.contact-link { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; transition: 0.2s; }
+.contact-link.primary { background: var(--teal); color: var(--navy); }
+.contact-link.primary:hover { background: var(--teal-dim); }
+.contact-link.ghost { border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.75); }
+.contact-link.ghost:hover { border-color: var(--teal); color: var(--teal); }
+.contact-link svg { width: 16px; height: 16px; }
+.avail-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(0,201,167,0.1); border: 1px solid rgba(0,201,167,0.25); color: var(--teal); font-size: 13px; padding: 6px 14px; border-radius: 100px; margin-bottom: 1.5rem; }
+.avail-badge::before { content: ''; width: 7px; height: 7px; background: var(--teal); border-radius: 50%; animation: pulse 2s infinite; }
+
+footer { background: var(--navy-mid); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; padding: 1.5rem 2rem; font-size: 13px; color: rgba(255,255,255,0.25); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .slide-card { flex: 0 0 calc(50% - 0.75rem); }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 60px; left: 0; right: 0; background: rgba(10,15,30,0.97); padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-hero); }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .value-cards { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+  section { padding: 60px 1.25rem; }
+  nav { padding: 0 1.25rem; }
+  .cert-grid { grid-template-columns: 1fr; }
+  .slide-card { flex: 0 0 calc(100% - 0px); }
+  .portfolio-header { flex-direction: column; align-items: flex-start; }
+  .nav-right { gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">dev<span>.</span>portfolio</div>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" data-i18n="nav_about">About</a></li>
+      <li><a href="#skills" data-i18n="nav_skills">Skills</a></li>
+      <li><a href="#portfolio" data-i18n="nav_portfolio">Portfolio</a></li>
+      <li><a href="#experience" data-i18n="nav_experience">Experience</a></li>
+      <li><a href="#education" data-i18n="nav_education">Education</a></li>
+      <li><a href="#contact" class="nav-cta" data-i18n="nav_contact">Get in touch</a></li>
+    </ul>
+    <div class="lang-switch">
+      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btnPL" onclick="setLang('pl')">PL</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow" data-i18n="hero_badge">Available for new projects</div>
+    <h1 data-i18n="hero_h1">Frontend <em>Web Developer</em><br>PrestaShop & WordPress</h1>
+    <div class="typewriter-line">
+      <span data-i18n="hero_typed_prefix">Specialist in - </span><span class="typed" id="typed"></span>
+    </div>
+    <p class="hero-summary" data-i18n="hero_summary">
+      15+ years building production e-commerce platforms  and websites for multiple clients and brands.
+      I combine deep frontend expertise with technical leadership to deliver solutions
+      focused on performance, conversion, and scalability.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M14 2L8 8M14 2H10M14 2V6"/><path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3"/></svg>
+        <span data-i18n="hero_cta">Let's work together</span>
+      </a>
+      <a href="#portfolio" class="btn-outline"><span data-i18n="hero_cta2">See portfolio →</span></a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">15<span>+</span></div>
+        <div class="stat-label" data-i18n="stat1">Years of experience</div>
+      </div>
+      <div>
+        <div class="stat-num">PS <span>1.6→9.1</span></div>
+        <div class="stat-label" data-i18n="stat2">PrestaShop coverage</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label" data-i18n="stat3">Languages spoken</div>
+      </div>
+      <div>
+        <div class="stat-num">10<span>+</span></div>
+        <div class="stat-label" data-i18n="stat4">Certifications earned</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-tag" data-i18n="about_tag">About me</div>
+        <h2 data-i18n="about_h2">E-commerce architect & frontend specialist</h2>
+        <p data-i18n="about_p1">I architect, develop, and maintain production e-commerce platforms - handling everything from legacy code refactoring to payment integrations, performance optimization, and technical SEO.</p>
+        <p data-i18n="about_p2">Beyond writing code, I have served as technical lead on e-commerce projects, coordinating development activity and working closely with marketing, SEO, and sales teams. I translate business requirements into clean, scalable technical solutions.</p>
+        <p data-i18n="about_p3">My work style is transparent, independent, and organized. I take ownership of production systems and thrive in multi-project environments where precision and deadline management matter.</p>
+        <div style="margin-top:1.75rem">
+          <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:0.9rem" data-i18n="lang_label">Languages</div>
+          <div class="lang-list">
+            <div class="lang-item"><span class="lang-name" data-i18n="lang_ru">Russian</span><div class="lang-bar-wrap"><div class="lang-bar" style="width:100%"></div></div><span class="lang-level" data-i18n="lang_native">Native</span></div>
+            <div class="lang-item"><span class="lang-name" data-i18n="lang_pl">Polish</span><div class="lang-bar-wrap"><div class="lang-bar" style="width:72%"></div></div><span class="lang-level">B2</span></div>
+            <div class="lang-item"><span class="lang-name" data-i18n="lang_en">English</span><div class="lang-bar-wrap"><div class="lang-bar" style="width:72%"></div></div><span class="lang-level">B2</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="value-cards reveal" style="transition-delay:0.15s">
+        <div class="value-card"><div class="value-icon">⚡</div><h4 data-i18n="val1_t">Performance-first</h4><p data-i18n="val1_p">Core Web Vitals, caching, database optimization - speed is a feature.</p></div>
+        <div class="value-card"><div class="value-icon">🔍</div><h4 data-i18n="val2_t">Technical SEO</h4><p data-i18n="val2_p">Structured data, AMP, Google, Yandex - built for visibility from the ground up.</p></div>
+        <div class="value-card"><div class="value-icon">🛠</div><h4 data-i18n="val3_t">Legacy expert</h4><p data-i18n="val3_p">Refactoring and modernising aging codebases without breaking production.</p></div>
+        <div class="value-card"><div class="value-icon">📦</div><h4 data-i18n="val4_t">Full delivery</h4><p data-i18n="val4_p">From your Figma / Photoshop project to deployment - design, code, DNS, hosting, and analytics.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-tag" data-i18n="skills_tag">Technical skills</div>
+    <h2 class="light" data-i18n="skills_h2">Tools & technologies</h2>
+    <p class="section-lead light" data-i18n="skills_lead">A broad and deep toolkit built across 15+ years of real-world production work.</p>
+    <div class="skills-grid reveal">
+      <div class="skill-group"><div class="skill-group-title" data-i18n="sg1">E-commerce Platforms</div><div class="tags"><span class="tag primary">PrestaShop 1.6–9.1</span><span class="tag primary">WordPress</span><span class="tag primary">WooCommerce</span><span class="tag">OpenCart</span><span class="tag">Joomla</span><span class="tag">Theme Development</span><span class="tag">Module Customization</span><span class="tag">One Page Checkout</span><span class="tag">Payment Integrations</span><span class="tag">Shipping Integrations</span></div></div>
+      <div class="skill-group"><div class="skill-group-title" data-i18n="sg2">Frontend</div><div class="tags"><span class="tag primary">HTML5</span><span class="tag primary">CSS3</span><span class="tag primary">JavaScript ES6+</span><span class="tag">LESS / SCSS</span><span class="tag">Twig</span><span class="tag">Bootstrap</span><span class="tag">Tailwind CSS</span><span class="tag">Semantic HTML</span><span class="tag">Responsive Design</span><span class="tag">Mobile-First</span><span class="tag">AMP</span><span class="tag">Pixel-perfect</span></div></div>
+      <div class="skill-group"><div class="skill-group-title" data-i18n="sg3">Backend & Data</div><div class="tags"><span class="tag primary">PHP</span><span class="tag primary">MySQL</span><span class="tag">XML</span><span class="tag">REST API</span><span class="tag">MeteorJS</span><span class="tag">Data Migration</span><span class="tag">Legacy Refactoring</span><span class="tag">ACF</span></div></div>
+      <div class="skill-group"><div class="skill-group-title" data-i18n="sg4">Analytics & SEO</div><div class="tags"><span class="tag primary">Google Analytics GA4</span><span class="tag primary">GTM</span><span class="tag">Google Search Console</span><span class="tag">Google Merchant Center</span><span class="tag">Yandex Analytics</span><span class="tag">Schema.org</span><span class="tag">Technical SEO</span><span class="tag">Core Web Vitals</span></div></div>
+      <div class="skill-group"><div class="skill-group-title" data-i18n="sg5">Dev Tools & Workflow</div><div class="tags"><span class="tag primary">Git & GitHub</span><span class="tag primary">VS Code</span><span class="tag">SSH</span><span class="tag">Figma</span><span class="tag">Adobe Photoshop</span><span class="tag">DNS & Hosting</span><span class="tag">ClickUp</span><span class="tag">Slack</span><span class="tag">Deployment</span></div></div>
+      <div class="skill-group"><div class="skill-group-title" data-i18n="sg6">Page Builders & CMS</div><div class="tags"><span class="tag">Elementor</span><span class="tag">WPBakery</span><span class="tag">Visual Composer</span><span class="tag">ACF</span><span class="tag">Wireframing</span><span class="tag">Prototyping</span><span class="tag">UI/UX Principles</span><span class="tag">W3C Standards</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-inner">
+    <div class="portfolio-header">
+      <div class="reveal">
+        <div class="section-tag" data-i18n="port_tag">Portfolio</div>
+        <h2 data-i18n="port_h2">Project examples</h2>
+        <p class="section-lead" style="margin-bottom:0" data-i18n="port_lead">Hands-on experience in projects ranging from greenfield development to legacy system modernization and performance optimization initiatives.</p>
+      </div>
+      <div class="slider-controls reveal" style="transition-delay:0.1s">
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-btn" id="sliderPrev" aria-label="Previous">
+          <svg viewBox="0 0 16 16"><polyline points="10 4 6 8 10 12"/></svg>
+        </button>
+        <button class="slider-btn" id="sliderNext" aria-label="Next">
+          <svg viewBox="0 0 16 16"><polyline points="6 4 10 8 6 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="slider-wrap reveal" style="transition-delay:0.15s">
+      <div class="slider-track" id="sliderTrack">
+
+        <!-- SLIDE 1 -->
+        <div class="slide-card">
+          <div class="slide-img">
+            <img src="file:///C:/Users/Natalia/Desktop/praca/portfolio/wdomu24-pl.jpg" alt="Project name" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="slide-body">
+            <div class="slide-category" data-i18n="p1_cat">PrestaShop</div>
+            <div class="slide-title" data-i18n="p1_title">PrestaShop E-commerce Store</div>
+            <!--<div class="slide-desc" data-i18n="p1_desc">Full migration from legacy PrestaShop 1.6 to 8.1 - custom theme, module refactoring, and performance optimization resulting in improved Core Web Vitals scores.</div>-->
+            <div class="slide-tags"><span class="slide-tag">PrestaShop 1.7.3→8.1</span><span class="slide-tag">Twig</span><span class="slide-tag">One Page Checkout</span><span class="slide-tag">Legacy Refactoring</span></div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="slide-card">
+          <div class="slide-img">
+           <img src="file:///C:/Users/Natalia/Desktop/praca/portfolio/swietokrzyskipoziomgor-pl.jpg" alt="Project name" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="slide-body">
+            <div class="slide-category" data-i18n="p2_cat">WordPress</div>
+            <div class="slide-title" data-i18n="p2_title">WordPress Theme Development</div>
+            <!--<div class="slide-desc" data-i18n="p2_desc">Pixel-perfect WordPress theme built from Figma designs - mobile-first, ACF-powered content blocks.</div>-->
+            <div class="slide-tags"><span class="slide-tag">WordPress</span><span class="slide-tag">Elementor</span><span class="slide-tag">ACF</span><span class="slide-tag">Theme Development</span><span class="slide-tag">Figma</span></div>
+          </div>
+        </div>
+		
+		<!-- SLIDE 3 -->
+        <div class="slide-card">
+          <div class="slide-img">
+           <img src="file:///C:/Users/Natalia/Desktop/praca/portfolio/tkaniny-prima-pl.jpg" alt="Project name" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="slide-body">
+            <div class="slide-category" data-i18n="p7_cat">WooCommerce</div>
+            <div class="slide-title" data-i18n="p7_title">WooCommerce Legacy Refactoring</div>
+            <!--<div class="slide-desc" data-i18n="p7_desc">Pixel-perfect WordPress theme built from Figma designs - mobile-first, ACF-powered content blocks.</div>-->
+            <div class="slide-tags"><span class="slide-tag">WooCommerce</span><span class="slide-tag">Visual Composer</span><span class="slide-tag">GA4</span><span class="slide-tag">Responsive Design</span><span class="slide-tag">Merchant Center Integraton</span></div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4 -->
+        <div class="slide-card">
+          <div class="slide-img">
+           <img src="file:///C:/Users/Natalia/Desktop/praca/portfolio/yandex.jpg" alt="Project name" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="slide-body">
+            <div class="slide-category" data-i18n="p3_cat">Marketing & SEO</div>
+            <div class="slide-title" data-i18n="p3_title">Digital Marketing & SEO</div>
+            <!--<div class="slide-desc" data-i18n="p3_desc">Comprehensive performance audit and optimization on an existing PrestaShop store - caching layers, image optimization, database tuning, and structured data implementation.</div>-->
+            <div class="slide-tags"><span class="slide-tag">PrestaShop</span><span class="slide-tag">Core Web Vitals</span><span class="slide-tag">Technical Online Marketing & SEO</span><span class="slide-tag">Schema.org</span><span class="slide-tag">AMP</span><span class="slide-tag">Turbo pages</span></div>
+          </div>
+        </div>
+
+        <!-- SLIDE 5 -->
+        <div class="slide-card">
+          <div class="slide-img">
+            <img src="file:///C:/Users/Natalia/Desktop/praca/portfolio/anonim-id.jpg" alt="Project name" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="slide-body">
+            <div class="slide-category" data-i18n="p4_cat">Website layout</div>
+            <div class="slide-title" data-i18n="p4_title">Front-end Web Development</div>
+            <!--<div class="slide-desc" data-i18n="p4_desc">Custom one-page checkout module with multi-payment gateway integration, shipping provider API connections, and conversion-optimised UX flow.</div>-->
+            <div class="slide-tags"><span class="slide-tag">HTML</span><span class="slide-tag">CSS</span><span class="slide-tag">LESS</span><span class="slide-tag">JavaScript</span><span class="slide-tag">Pixel Perfect</span><span class="slide-tag">Website Layout Code</span></div>
+          </div>
+        </div>
+
+        <!-- SLIDE 6 -->
+        <div class="slide-card">
+          <div class="slide-img">
+            <img src="file:///C:/Users/Natalia/Desktop/praca/portfolio/sales-orders-visits.jpg" alt="Project name" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="slide-body">
+            <div class="slide-category" data-i18n="p5_cat">Analytics & Tracking</div>
+            <div class="slide-title" data-i18n="p5_title">GA + Yandex Web Analytics</div>
+            <!--<div class="slide-desc" data-i18n="p5_desc">Full analytics stack implementation - GA4 migration, GTM container setup with e-commerce event tracking, Google Merchant Center feed, and Search Console integration.</div>-->
+            <div class="slide-tags"><span class="slide-tag">PrestaShop</span><span class="slide-tag">GA4</span><span class="slide-tag">GTM</span><span class="slide-tag">Yandex.Metrica</span><span class="slide-tag">Yandex.Webmaster</span></div>
+          </div>
+        </div>
+
+        <!-- SLIDE 7 -->
+        <div class="slide-card">
+          <div class="slide-img">
+            <img src="file:///C:/Users/Natalia/Desktop/praca/portfolio/fragrance-ee.jpg" alt="Project name" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="slide-body">
+            <div class="slide-category" data-i18n="p6_cat">Payment / Shipping & Checkout</div>
+            <div class="slide-title" data-i18n="p6_title">PrestaShop / SEB / Omniva</div>
+            <!--<div class="slide-desc" data-i18n="p6_desc">End-to-end platform migration including data ETL, product catalogue transfer, SEO URL preservation, custom theme rebuild, and post-launch validation.</div>-->
+            <div class="slide-tags"><span class="slide-tag">PrestaShop</span><span class="slide-tag">Payment & Shipping Integrations</span><span class="slide-tag">Responsive Web Design</span><span class="slide-tag">SEB Payment</span><span class="slide-tag">Omniva Delivery</span></div>
+          </div>
+        </div>
+		
+		<!-- SLIDE 8 -->
+        <div class="slide-card">
+          <div class="slide-img">
+            <img src="file:///C:/Users/Natalia/Desktop/praca/portfolio/uber-russian.jpg" alt="Project name" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="slide-body">
+            <div class="slide-category" data-i18n="p8_cat">Monstra CMS</div>
+            <div class="slide-title" data-i18n="p8_title">Website development</div>
+            <!--<div class="slide-desc" data-i18n="p8_desc">End-to-end platform migration including data ETL, product catalogue transfer, SEO URL preservation, custom theme rebuild, and post-launch validation.</div>-->
+            <div class="slide-tags"><span class="slide-tag">Monstra CMS</span><span class="slide-tag">HTML</span><span class="slide-tag">JavaScript</span><span class="slide-tag">PHP</span><span class="slide-tag">Responsive Web Design</span></div>
+          </div>
+        </div>
+		
+		<!-- SLIDE 9 -->
+        <div class="slide-card">
+          <div class="slide-img">
+            <img src="file:///C:/Users/Natalia/Desktop/praca/portfolio/autofar-am.jpg" alt="Project name" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="slide-body">
+            <div class="slide-category" data-i18n="p9_cat">Joomla</div>
+            <div class="slide-title" data-i18n="p9_title">Website development</div>
+            <!--<div class="slide-desc" data-i18n="p9_desc">End-to-end platform migration including data ETL, product catalogue transfer, SEO URL preservation, custom theme rebuild, and post-launch validation.</div>-->
+            <div class="slide-tags"><span class="slide-tag">Joomla CMS</span><span class="slide-tag">HTML</span><span class="slide-tag">JavaScript</span><span class="slide-tag">PHP</span><span class="slide-tag">Responsive Web Design</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag" data-i18n="exp_tag">Experience</div>
+      <h2 data-i18n="exp_h2">15+ years in production e-commerce</h2>
+      <p class="section-lead" style="margin-bottom:0" data-i18n="exp_lead">End-to-end ownership of e-commerce platforms: architecture, frontend development, integrations, performance, and technical leadership across multiple clients and brands.</p>
+    </div>
+    <div style="margin-top:2.5rem">
+      <div class="timeline">
+        <div class="exp-item reveal">
+          <div class="exp-dot"></div>
+          <div class="exp-card">
+            <div class="exp-header"><div class="exp-role" data-i18n="e1_role">Senior Frontend E-commerce Developer</div><div class="exp-years">2010 - Present</div></div>
+            <p class="exp-desc" data-i18n="e1_desc">Architected and maintained production e-commerce platforms for multiple clients on PrestaShop (1.6–9.1) and WordPress/WooCommerce. Led frontend development from legacy refactoring to new theme builds, custom module development, and payment & shipping integrations. Served as technical lead, coordinating cross-functional teams and aligning development work with marketing, SEO, and sales objectives.</p>
+          </div>
+        </div>
+        <div class="exp-item reveal" style="transition-delay:0.1s">
+          <div class="exp-dot"></div>
+          <div class="exp-card">
+            <div class="exp-header"><div class="exp-role" data-i18n="e2_role">Technical Lead - E-commerce Projects</div><div class="exp-years" data-i18n="e2_years">Multi-client</div></div>
+            <p class="exp-desc" data-i18n="e2_desc">Led technical decision-making across e-commerce projects: defined architecture, coordinated development activities, and ensured delivery on schedule. Worked closely with marketing and SEO teams to optimise conversion funnels, improve Core Web Vitals, and implement structured data and analytics tracking (UA, GA4, GTM).</p>
+          </div>
+        </div>
+        <div class="exp-item reveal" style="transition-delay:0.2s">
+          <div class="exp-dot"></div>
+          <div class="exp-card">
+            <div class="exp-header"><div class="exp-role" data-i18n="e3_role">Performance & SEO Specialist</div><div class="exp-years" data-i18n="e3_years">Ongoing</div></div>
+            <p class="exp-desc" data-i18n="e3_desc">Ongoing performance optimization and technical SEO across PrestaShop and WordPress platforms. Delivered improvements to Core Web Vitals, database performance, caching layers, and structured data implementation (Schema.org). Managed Google Merchant Center, Search Console, and Yandex Webmaster integrations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag" data-i18n="edu_tag">Education & Certifications</div>
+      <h2 data-i18n="edu_h2">Continuous learning</h2>
+      <p class="section-lead" data-i18n="edu_lead">Training supplemented by continuous professional development across platforms, analytics, and emerging technologies.</p>
+    </div>
+    <div class="cert-grid reveal" style="transition-delay:0.1s">
+      <div class="cert-card"><div class="cert-icon">🤖</div><div class="cert-body"><div class="cert-title" data-i18n="c1_t">Claude AI / API Development</div><div class="cert-issuer">Anthropic Academy</div><div class="cert-date">May 2026 – present</div><div class="cert-tags"><span class="cert-tag">AI Applications</span><span class="cert-tag">API Integration</span><span class="cert-tag">Prompt Engineering</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">⚛️</div><div class="cert-body"><div class="cert-title">React JS</div><div class="cert-issuer">itProger</div><div class="cert-date">Apr 2026 – present</div><div class="cert-tags"><span class="cert-tag">Components</span><span class="cert-tag">Hooks</span><span class="cert-tag">REST API</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">🛒</div><div class="cert-body"><div class="cert-title" data-i18n="c3_t">PrestaShop Module Creation</div><div class="cert-issuer">PrestaShop Experts</div><div class="cert-date">Mar 2025</div><div class="cert-tags"><span class="cert-tag">Hooks</span><span class="cert-tag">Symfony</span><span class="cert-tag">Multistore</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">🔄</div><div class="cert-body"><div class="cert-title" data-i18n="c4_t">Platform Migration to PrestaShop</div><div class="cert-issuer">PrestaShop Experts</div><div class="cert-date">Mar 2025</div><div class="cert-tags"><span class="cert-tag">Data Migration</span><span class="cert-tag">ETL</span><span class="cert-tag">Validation</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">⚡</div><div class="cert-body"><div class="cert-title" data-i18n="c5_t">PrestaShop Optimization</div><div class="cert-issuer">PrestaShop Experts</div><div class="cert-date">Oct 2024</div><div class="cert-tags"><span class="cert-tag">Core Web Vitals</span><span class="cert-tag">Caching</span><span class="cert-tag">SEO</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">🎨</div><div class="cert-body"><div class="cert-title" data-i18n="c6_t">PrestaShop Theme Creation</div><div class="cert-issuer">PrestaShop Experts</div><div class="cert-date">Oct 2024</div><div class="cert-tags"><span class="cert-tag">Twig</span><span class="cert-tag">Smarty</span><span class="cert-tag">Child Themes</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">📊</div><div class="cert-body"><div class="cert-title" data-i18n="c7_t">Google Analytics (UA + GA4)</div><div class="cert-issuer">Google Analytics Academy</div><div class="cert-date">Feb – May 2023</div><div class="cert-tags"><span class="cert-tag">GA4</span><span class="cert-tag">KPI Tracking</span><span class="cert-tag">User Behavior</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">🌐</div><div class="cert-body"><div class="cert-title" data-i18n="c8_t">Responsive Web Development</div><div class="cert-issuer">Goldsmiths, University of London + Coursera</div><div class="cert-date">Oct 2020 – Jun 2023</div><div class="cert-tags"><span class="cert-tag">Full Stack</span><span class="cert-tag">UX</span><span class="cert-tag">MeteorJS</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">🔐</div><div class="cert-body"><div class="cert-title" data-i18n="c9_t">Personal Data Protection (GDPR)</div><div class="cert-issuer">RODO GROUP</div><div class="cert-date">Dec 2023 & Mar 2025</div><div class="cert-tags"><span class="cert-tag">GDPR</span><span class="cert-tag">Compliance</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">📢</div><div class="cert-body"><div class="cert-title" data-i18n="c10_t">Fundamentals of Digital Marketing</div><div class="cert-issuer">Google Digital Workshop</div><div class="cert-date">Dec 2021 – Feb 2023</div><div class="cert-tags"><span class="cert-tag">SEO</span><span class="cert-tag">Google Ads</span><span class="cert-tag">E-commerce</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">💻</div><div class="cert-body"><div class="cert-title">JavaScript / DOM / Interfaces</div><div class="cert-issuer">Javascript.Info</div><div class="cert-date">Oct – Nov 2020</div><div class="cert-tags"><span class="cert-tag">JavaScript</span><span class="cert-tag">DOM</span><span class="cert-tag">UI Components</span></div></div></div>
+      <div class="cert-card"><div class="cert-icon">🏛</div><div class="cert-body"><div class="cert-title" data-i18n="c12_t">Internet Projects Developer</div><div class="cert-issuer">INTUIT University</div><div class="cert-date">Aug 2013 – Sep 2014</div><div class="cert-tags"><span class="cert-tag">HTML</span><span class="cert-tag">CSS</span><span class="cert-tag">Web Development</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="avail-badge" data-i18n="contact_badge">Open to work</div>
+    <div class="contact-tagline reveal" data-i18n="contact_h">Let's build something<br><em>great together</em></div>
+    <p class="contact-sub reveal" style="transition-delay:0.1s" data-i18n="contact_sub">Whether you need a PrestaShop or WooCommerce build from scratch, a legacy platform overhaul, or ongoing technical partnership - I'd love to hear about your project.</p>
+    <div class="contact-links reveal" style="transition-delay:0.2s">
+      <a href="mailto:27natarus@gmail.com" class="contact-link primary">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 3l7 6 7-6"/></svg>
+        <span data-i18n="contact_email">Send an email</span>
+      </a>
+      <a href="https://www.linkedin.com/in/nataliaperesypkina/" target="_blank" rel="noopener" class="contact-link ghost">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 1h-11A1.5 1.5 0 001 2.5v11A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-11A1.5 1.5 0 0013.5 1zM5.5 12.5h-2v-6h2v6zm-1-6.8a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4zm9 6.8h-2V9.3c0-.75-.27-1.26-.95-1.26-.52 0-.83.35-.97.69-.05.12-.06.29-.06.46v3.31h-2V6.5h2v.82c.27-.41.74-1 1.8-1 1.32 0 2.18.86 2.18 2.7v3.48z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/Natalia-Peresypkina" target="_blank" rel="noopener" class="contact-link ghost">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 00-2.21 13.64c.35.06.48-.15.48-.34v-1.2c-1.95.43-2.36-.94-2.36-.94-.32-.81-.78-1.02-.78-1.02-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.62 1.07 1.63.76 2.03.58.06-.45.24-.76.44-.93-1.56-.18-3.2-.78-3.2-3.47 0-.77.27-1.4.72-1.89-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72A6.7 6.7 0 018 4.96a6.7 6.7 0 011.76.24c1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.89 0 2.7-1.64 3.29-3.2 3.47.25.22.47.65.47 1.3v1.94c0 .19.13.4.48.34A7 7 0 008 1z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p data-i18n="footer_text">Built with clean HTML, CSS & vanilla JS · Ready to deploy on Netlify</p>
+</footer>
+
+<script>
+// ── TRANSLATIONS ──
+const i18n = {
+  en: {
+    nav_about:'About', nav_skills:'Skills', nav_portfolio:'Portfolio',
+    nav_experience:'Experience', nav_education:'Education', nav_contact:'Get in touch',
+    hero_badge:'Available for new projects',
+    hero_h1:'Frontend <em>Web Developer</em><br>PrestaShop & WordPress',
+    hero_typed_prefix:'Specialist in - ',
+    hero_summary:'15+ years building production e-commerce platforms and websites for multiple clients and brands. I combine deep frontend expertise with technical leadership to deliver solutions focused on performance, conversion, and scalability.',
+    hero_cta:"Let's work together", hero_cta2:'See portfolio →',
+    stat1:'Years of experience', stat2:'PrestaShop coverage', stat3:'Languages spoken', stat4:'Certifications earned',
+    about_tag:'About me', about_h2:'E-commerce architect & frontend specialist',
+    about_p1:'I architect, develop, and maintain production e-commerce platforms - handling everything from legacy code refactoring to payment integrations, performance optimization, and technical SEO.',
+    about_p2:'Beyond writing code, I have served as technical lead on e-commerce projects, coordinating development activity and working closely with marketing, SEO, and sales teams. I translate business requirements into clean, scalable technical solutions.',
+    about_p3:'My work style is transparent, independent, and organized. I take ownership of production systems and thrive in multi-project environments where precision and deadline management matter.',
+    lang_label:'Languages', lang_ru:'Russian', lang_pl:'Polish', lang_en:'English', lang_native:'Native',
+    val1_t:'Performance-first', val1_p:'Core Web Vitals, caching, database optimization - speed is a feature.',
+    val2_t:'Technical SEO', val2_p:'Structured data, AMP, Google, Yandex - built for visibility from the ground up.',
+    val3_t:'Legacy expert', val3_p:'Refactoring and modernising aging codebases without breaking production.',
+    val4_t:'Full delivery', val4_p:'From your Figma / Photoshop project to deployment - design, code, DNS, hosting, and analytics.',
+    skills_tag:'Technical skills', skills_h2:'Tools & technologies',
+    skills_lead:'A broad and deep toolkit built across 15+ years of real-world production work.',
+    sg1:'E-commerce Platforms', sg2:'Frontend', sg3:'Backend & Data',
+    sg4:'Analytics & SEO', sg5:'Dev Tools & Workflow', sg6:'Page Builders & CMS',
+    port_tag:'Portfolio', port_h2:'Project examples',
+    port_lead:'Hands-on experience in projects ranging from greenfield development to legacy system modernization and performance optimization initiatives.',
+    port_placeholder:'Add project screenshot',
+    p1_cat:'PrestaShop', p1_title:'PrestaShop E-commerce Store',
+    p2_cat:'WordPress', p2_title:'WordPress Theme Development',
+    p3_cat:'Marketing & SEO', p3_title:'Digital Marketing & SEO',
+    p4_cat:'Website layout', p4_title:'Front-end Web Development',
+    p5_cat:'Analytics & Tracking', p5_title:'GA + Yandex Web Analytics',
+    p6_cat:'Payment / Shipping & Checkout', p6_title:'PrestaShop / SEB / Omniva',
+	p7_cat:'WooCommerce', p7_title:'WordPress / WooCommerce Legacy Refactoring',
+	p8_cat:'Monstra CMS', p8_title:'Website development',
+	p9_cat:'Joomla', p9_title:'Website development',
+
+    exp_tag:'Experience', exp_h2:'15+ years in production e-commerce',
+    exp_lead:'End-to-end ownership of e-commerce platforms: architecture, frontend development, integrations, performance, and technical leadership across multiple clients and brands.',
+    e1_role:'Senior Frontend E-commerce Developer',
+    e1_desc:'Architected and maintained production e-commerce platforms for multiple clients on PrestaShop (1.6–9.1) and WordPress/WooCommerce. Led frontend development from legacy refactoring to new theme builds, custom module development, and payment & shipping integrations. Served as technical lead, coordinating cross-functional teams and aligning development work with marketing, SEO, and sales objectives.',
+    e2_role:'Technical Lead - E-commerce Projects', e2_years:'Multi-client',
+    e2_desc:'Led technical decision-making across e-commerce projects: defined architecture, coordinated development activities, and ensured delivery on schedule. Worked closely with marketing and SEO teams to optimise conversion funnels, improve Core Web Vitals, and implement structured data and analytics tracking (UA, GA4, GTM).',
+    e3_role:'Performance & SEO Specialist', e3_years:'Ongoing',
+    e3_desc:'Ongoing performance optimization and technical SEO across PrestaShop and WordPress platforms. Delivered improvements to Core Web Vitals, database performance, caching layers, and structured data implementation (Schema.org). Managed Google Merchant Center, Search Console, and Yandex Webmaster integrations.',
+    edu_tag:'Education & Certifications', edu_h2:'Continuous learning',
+    edu_lead:'Training supplemented by continuous professional development across webdev, analytics, and emerging technologies.',
+    c1_t:'Claude AI / API Development', c3_t:'PrestaShop Module Creation',
+    c4_t:'Platform Migration to PrestaShop', c5_t:'PrestaShop Optimization',
+    c6_t:'PrestaShop Theme Creation', c7_t:'Google Analytics (UA + GA4)',
+    c8_t:'Responsive Web Development', c9_t:'Personal Data Protection (GDPR)',
+    c10_t:'Fundamentals of Digital Marketing', c12_t:'Internet Projects Developer',
+    contact_badge:'Open to work',
+    contact_h:"Let's build something<br><em>great together</em>",
+    contact_sub:"Whether you need a PrestaShop or WooCommerce build from scratch, a legacy platform overhaul, or ongoing technical partnership - I'd love to hear about your project.",
+    contact_email:'Send an email',
+    footer_text:'2026 - PrestaShop & WordPress Frontend Web Developer'
+  },
+  pl: {
+    nav_about:'O mnie', nav_skills:'Umiejętności', nav_portfolio:'Portfolio',
+    nav_experience:'Doświadczenie', nav_education:'Edukacja', nav_contact:'Skontaktuj się',
+    hero_badge:'Dostępna dla nowych projektów',
+    hero_h1:'Frontend <em>Web Developer</em><br>PrestaShop & WordPress',
+    hero_typed_prefix:'Specjalizuję się w - ',
+    hero_summary:'15+ lat doświadczenia komercyjnego w projektowaniu architektury, rozwoju i utrzymaniu produkcyjnych platform e-commerce i stron dla wielu klientów i marek. Łączę zaawansowane kompetencje frontendowe z doświadczeniem w liderstwie technicznym, dostarczając rozwiązania ukierunkowane na konwersję, wydajność i skalowalność.',
+    hero_cta:'Porozmawiajmy', hero_cta2:'Zobacz portfolio →',
+    stat1:'Lat doświadczenia', stat2:'Wersje PrestaShop', stat3:'Języki', stat4:'Certyfikaty',
+    about_tag:'O mnie', about_h2:'Architekt e-commerce i specjalistka frontend',
+    about_p1:'Projektuję, rozwijam i utrzymuję produkcyjne platformy e-commerce - od refaktoryzacji legacy code, przez integracje płatności i dostaw, po optymalizację wydajności i SEO techniczne.',
+    about_p2:'Pełniłam rolę technicznego lidera w projektach e-commerce, koordynowałam prace developerskie oraz ściśle współpracowałam z zespołami marketingu, SEO i sprzedaży. Przekładam potrzeby biznesowe na czyste, skalowalne rozwiązania techniczne.',
+    about_p3:'Cechuje mnie przejrzysty i niezależny styl pracy, zorganizowane podejście do zadań oraz pełna odpowiedzialność za systemy produkcyjne. Sprawnie działam w środowisku wielu projektów, gdzie liczy się precyzja i dotrzymywanie terminów.',
+    lang_label:'Języki', lang_ru:'Rosyjski', lang_pl:'Polski', lang_en:'Angielski', lang_native:'Ojczysty',
+    val1_t:'Wydajność przede wszystkim', val1_p:'Core Web Vitals, cache, optymalizacja bazy danych - szybkość to funkcja produktu.',
+    val2_t:'SEO techniczne', val2_p:'Dane strukturalne, AMP, Google, Yandex - widoczność zaprojektowana od podstaw.',
+    val3_t:'Ekspertka od legacy', val3_p:'Refaktoryzacja i modernizacja przestarzałego kodu bez ryzyka dla produkcji.',
+    val4_t:'Pełna realizacja', val4_p:'Od Twojego projektu Figma / Photoshop do wdrożenia - design, kod, DNS, hosting i analityka.',
+    skills_tag:'Umiejętności techniczne', skills_h2:'Narzędzia i technologie',
+    skills_lead:'Szerokie i głębokie kompetencje zbudowane przez 15+ lat pracy przy projektach produkcyjnych.',
+    sg1:'Platformy e-commerce', sg2:'Frontend', sg3:'Backend i dane',
+    sg4:'Analityka i SEO', sg5:'Narzędzia deweloperskie', sg6:'Page buildery i CMS',
+    port_tag:'Portfolio', port_h2:'Przykłady projektów',
+    port_lead:'Praktyczne doświadczenie w projektach obejmujących zarówno rozwój nowych rozwiązań, jak i modernizację systemów legacy oraz inicjatywy związane z optymalizacją wydajności.',
+    port_placeholder:'Dodaj zrzut ekranu projektu',
+    p1_cat:'PrestaShop', p1_title:'PrestaShop E-commerce Store',
+    p2_cat:'WordPress', p2_title:'WordPress Theme Development',
+    p3_cat:'Marketing & SEO', p3_title:'Digital Marketing & SEO',
+    p4_cat:'Website layout', p4_title:'Front-end Web Development',
+    p5_cat:'Analityka i śledzenie', p5_title:'GA + Yandex Web Analytics',
+    p6_cat:'Payment / Shipping & Checkout', p6_title:'PrestaShop / SEB / Omniva',
+	p7_cat:'WooCommerce', p7_title:'WordPress / WooCommerce Legacy Refactoring',
+	p8_cat:'Monstra CMS', p8_title:'Website development',
+	p9_cat:'Joomla', p9_title:'Website development',
+	
+    exp_tag:'Doświadczenie', exp_h2:'15+ lat w produkcyjnym e-commerce',
+    exp_lead:'Kompleksowa odpowiedzialność za platformy e-commerce: architektura, rozwój frontendu, integracje, wydajność i liderstwo techniczne dla wielu klientów i marek.',
+    e1_role:'Starszy Frontend Developer E-commerce',
+    e1_desc:'Projektowałam i utrzymywałam produkcyjne platformy e-commerce dla wielu klientów na PrestaShop (1.6–9.1) i WordPress/WooCommerce. Prowadziłam prace frontendowe: od refaktoryzacji legacy po nowe motywy, autorskie moduły oraz integracje płatności i dostaw. Pełniłam rolę technicznego lidera, koordynując zespoły interdyscyplinarne i realizując cele marketingowe, SEO i sprzedażowe.',
+    e2_role:'Technical Lead - Projekty e-commerce', e2_years:'Wiele klientów',
+    e2_desc:'Odpowiadałam za decyzje techniczne w projektach e-commerce: definiowałam architekturę, koordynowałam prace developerskie i dbałam o terminowość dostaw. Ściśle współpracowałam z zespołami marketingu i SEO w celu optymalizacji lejków konwersji, poprawy Core Web Vitals oraz wdrażania danych strukturalnych i śledzenia analitycznego (UA, GA4, GTM).',
+    e3_role:'Specjalistka ds. wydajności i SEO', e3_years:'Bieżące',
+    e3_desc:'Bieżąca optymalizacja wydajności i SEO techniczne na platformach PrestaShop i WordPress. Zrealizowałam poprawę Core Web Vitals, wydajności bazy danych, warstw cache oraz implementację danych strukturalnych (Schema.org). Zarządzałam integracjami Google Merchant Center, Search Console i Yandex Webmaster.',
+    edu_tag:'Edukacja i certyfikaty', edu_h2:'Ciągły rozwój',
+    edu_lead:'Szkolenia uzupełnione o ciągły rozwój zawodowy w zakresie webdev, web analityki i nowych technologii.',
+    c1_t:'Claude AI / Tworzenie aplikacji z API', c3_t:'Tworzenie modułów PrestaShop',
+    c4_t:'Migracja platform do PrestaShop', c5_t:'Optymalizacja PrestaShop',
+    c6_t:'Tworzenie motywów PrestaShop', c7_t:'Google Analytics (UA + GA4)',
+    c8_t:'Tworzenie responsywnych stron', c9_t:'Ochrona danych osobowych (RODO)',
+    c10_t:'Podstawy marketingu cyfrowego', c12_t:'Twórca projektów internetowych',
+    contact_badge:'Dostępna dla nowych projektów',
+    contact_h:'Zbudujmy razem<br><em>coś wyjątkowego</em>',
+    contact_sub:'Niezależnie czy potrzebujesz sklepu PrestaShop lub WooCommerce od podstaw, modernizacji legacy platformy czy długoterminowego partnerstwa technicznego - chętnie poznam Twój projekt.',
+    contact_email:'Napisz do mnie',
+    footer_text:'2026 - PrestaShop & WordPress Frontend Web Developer'
+  }
+};
+
+let currentLang = 'en';
+const typedPhrases = {
+  en: ['PrestaShop 1.6–9.1','WordPress / WooCommerce','E-commerce Architecture','Performance Optimization','Technical SEO','Payment Integrations','Core Web Vitals'],
+  pl: ['PrestaShop 1.6–9.1','WordPress / WooCommerce','Architektura e-commerce','Optymalizacja wydajności','SEO techniczne','Integracje płatności','Core Web Vitals']
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnPL').classList.toggle('active', lang === 'pl');
+  const t = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.title = lang === 'pl'
+    ? 'Frontend Developer - PrestaShop & WordPress'
+    : 'Frontend Web Developer - PrestaShop & WordPress';
+  // Reset typewriter phrases
+  typedPi = 0; typedCi = 0; typedDeleting = false;
+}
+
+// ── TYPEWRITER ──
+let typedPi = 0, typedCi = 0, typedDeleting = false;
+const typedEl = document.getElementById('typed');
+function type() {
+  const phrase = typedPhrases[currentLang][typedPi];
+  if (!typedDeleting) {
+    typedEl.textContent = phrase.slice(0, ++typedCi);
+    if (typedCi === phrase.length) { typedDeleting = true; setTimeout(type, 1800); return; }
+  } else {
+    typedEl.textContent = phrase.slice(0, --typedCi);
+    if (typedCi === 0) { typedDeleting = false; typedPi = (typedPi + 1) % typedPhrases[currentLang].length; }
+  }
+  setTimeout(type, typedDeleting ? 40 : 65);
+}
+type();
+
+// ── SLIDER ──
+const track = document.getElementById('sliderTrack');
+const cards = track.querySelectorAll('.slide-card');
+const dotsWrap = document.getElementById('sliderDots');
+const btnPrev = document.getElementById('sliderPrev');
+const btnNext = document.getElementById('sliderNext');
+let sliderIdx = 0;
+
+function getSlidesPerView() {
+  if (window.innerWidth < 600) return 1;
+  if (window.innerWidth < 960) return 2;
+  return 3;
+}
+
+function buildDots() {
+  const spv = getSlidesPerView();
+  const total = Math.ceil(cards.length / spv);
+  dotsWrap.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i+1));
+    d.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(d);
+  }
+}
+
+function goTo(idx) {
+  const spv = getSlidesPerView();
+  const maxIdx = Math.ceil(cards.length / spv) - 1;
+  sliderIdx = Math.max(0, Math.min(idx, maxIdx));
+  const gap = 24;
+  const cardW = cards[0].offsetWidth;
+  track.style.transform = `translateX(-${sliderIdx * (cardW + gap) * spv}px)`;
+  dotsWrap.querySelectorAll('.slider-dot').forEach((d,i) => d.classList.toggle('active', i === sliderIdx));
+  btnPrev.disabled = sliderIdx === 0;
+  btnNext.disabled = sliderIdx >= maxIdx;
+}
+
+btnPrev.addEventListener('click', () => goTo(sliderIdx - 1));
+btnNext.addEventListener('click', () => goTo(sliderIdx + 1));
+window.addEventListener('resize', () => { buildDots(); goTo(0); });
+buildDots();
+goTo(0);
+
+// ── SCROLL REVEAL ──
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.10 });
+revealEls.forEach(el => obs.observe(el));
+
+// ── HAMBURGER ──
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+</script>
+</body>
+</html>
